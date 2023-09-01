@@ -7,6 +7,7 @@ type propObj = {
 
 type CardProps = {
   title: string;
+  index: number;
   properties: {
     basic: propObj;
     professional: propObj;
@@ -14,17 +15,38 @@ type CardProps = {
   };
 };
 
-const Card: React.FunctionComponent<CardProps> = ({ title, properties }) => {
+const Card: React.FunctionComponent<CardProps> = ({
+  title,
+  index,
+  properties,
+}) => {
   console.log("card", properties);
   return (
-    <div>
-      <h2>{title}</h2>
-      <span>{properties[title]["price"]}</span>
-      <span>{properties[title]["storage"]} Storage</span>
-      <span>{properties[title]["users"]} Users Allowed</span>
-      <span> Send up to {properties[title]["sendUpTo"]}</span>
-      <button>Learn More</button>
-    </div>
+    <>
+      {properties ? (
+        <article className={index % 2 == 0 ? "card" : "card dark"}>
+          <h2>{title}</h2>
+          <span className="price border-bottom">
+            {properties[title]["price"]}
+          </span>
+          <span className="details border-bottom">
+            {properties[title]["storage"]} Storage
+          </span>
+          <span className="details border-bottom">
+            {properties[title]["users"]} Users Allowed
+          </span>
+          <span className="details border-bottom">
+            {" "}
+            Send up to {properties[title]["sendUpTo"]}
+          </span>
+          <button>Learn More</button>
+        </article>
+      ) : (
+        <article>
+          <h2>ups</h2>
+        </article>
+      )}
+    </>
   );
 };
 

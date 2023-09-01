@@ -21,21 +21,26 @@ function App() {
   }
 
   return (
-    <main>
+    <>
       <header>
         <h1>Our Pricing</h1>
-        <div>
+        <div className="toggle-section">
           <span>Annually</span>
-          <button onClick={handleClick}>SLIDER</button>
+          <button onClick={handleClick}>Toggle</button>
           <span>Monthly</span>
         </div>
       </header>
-      <section title="main" className="main-section">
+      <main>
         {type.map((elem, index) => (
-          <Card key={index} title={elem} properties={data[period]}></Card>
+          <Card
+            key={index}
+            index={index}
+            title={elem}
+            properties={data[period]}
+          ></Card>
         ))}
-      </section>
-    </main>
+      </main>
+    </>
   );
 }
 
