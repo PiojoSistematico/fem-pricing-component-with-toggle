@@ -9,9 +9,7 @@ type CardProps = {
   title: string;
   index: number;
   properties: {
-    basic: propObj;
-    professional: propObj;
-    master: propObj;
+    [key: string]: propObj;
   };
 };
 
@@ -20,24 +18,21 @@ const Card: React.FunctionComponent<CardProps> = ({
   index,
   properties,
 }) => {
-  console.log("card", properties);
   return (
     <>
       {properties ? (
         <article className={index % 2 == 0 ? "card" : "card dark"}>
           <h2>{title}</h2>
-          <span className="price border-bottom">
-            {properties[title]["price"]}
+          <span className="price border-bottom">{properties[title].price}</span>
+          <span className="details border-bottom">
+            {properties[title].storage} Storage
           </span>
           <span className="details border-bottom">
-            {properties[title]["storage"]} Storage
-          </span>
-          <span className="details border-bottom">
-            {properties[title]["users"]} Users Allowed
+            {properties[title].users} Users Allowed
           </span>
           <span className="details border-bottom">
             {" "}
-            Send up to {properties[title]["sendUpTo"]}
+            Send up to {properties[title].sendUpTo}
           </span>
           <button>Learn More</button>
         </article>

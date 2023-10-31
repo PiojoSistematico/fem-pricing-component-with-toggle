@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 
+type propObj = {
+  price: string;
+  storage: string;
+  users: string;
+  sendUpTo: string;
+};
+
+type propData = {
+  [key: string]: { [key: string]: propObj };
+};
+
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<propData>({});
   const [period, setPeriod] = useState("monthly");
 
   const type: string[] = ["basic", "professional", "master"];
 
   useEffect(() => {
-    console.log("aers");
     fetch("data.json")
       .then((res) => res.json())
       .then((info) => setData(info));
   }, []);
-
-  /* console.log(data[period]); */
 
   function handleClick(): void {
     period == "monthly" ? setPeriod("annually") : setPeriod("monthly");
@@ -26,7 +34,15 @@ function App() {
         <h1>Our Pricing</h1>
         <div className="toggle-section">
           <span>Annually</span>
-          <button onClick={handleClick}>Toggle</button>
+          <button className="toggle" onClick={handleClick}>
+            <span
+              className={
+                period == "monthly"
+                  ? "toggle-circle right"
+                  : "toggle-circle left"
+              }
+            ></span>
+          </button>
           <span>Monthly</span>
         </div>
       </header>
